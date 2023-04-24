@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome'); //View is a global helper function which can be accessed from any place in code
 });
+
+Route::get('/test', 
+[TestController::class, 'testAction']);// ::class is a php magic constant // TestController::class returns string contains its namespace

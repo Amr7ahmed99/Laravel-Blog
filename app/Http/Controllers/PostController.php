@@ -39,4 +39,24 @@ class PostController extends Controller
             'pageName'=> 'Laravel-Blog'
         ]);
     }
+
+    public function create(Request $request){
+        // dd($request->request);
+        // return "created";
+       
+        return redirect('posts');
+        //  return $this->index()->with('status', 'Blog Post Form Data Has Been inserted');
+    }
+
+    public function edit($id){
+        return view('posts.edit', [
+
+            "pageName"=> "Laravel-Edit-Blog"
+        ]);
+    }
+    
+    public function destroy($id){
+        return "Delete Page";
+    }
+
 }

@@ -14,12 +14,38 @@ use App\Http\Controllers\PostController;
 |
 */
 
+//Welcome
 Route::get('/', function () {
     return view('welcome'); //View is a global helper function which can be accessed from any place in code
 });
 
-Route::get('posts', 
-[PostController::class, 'index']);// ::class is a php magic constant // TestController::class returns string contains its namespace
 
-Route::get('posts/{post}', 
-'App\Http\Controllers\PostController@show')->name('posts.show');// PostController::class ==> App\Http\Controllers\PostController
+
+//Posts
+Route::prefix('posts')->group(function () {
+
+    Route::get(
+        '/',
+        [PostController::class, 'index']
+    )->name('posts.index');// ::class is a php magic constant // TestController::class returns string contains its namespace
+
+    Route::post(
+        '/create',
+        [PostController::class, 'create']
+    )->name('posts.create');
+
+    Route::get(
+        '/{post}',
+        'App\Http\Controllers\PostController@show'
+    )->name('posts.show');// PostController::class ==> App\Http\Controllers\PostController
+
+    Route::get(
+        '/{post}/edit',
+        [PostController::class, 'edit']
+    )->name('posts.edit');// ::class is a php magic constant // TestController::class returns string contains its namespace
+
+    Route::get(
+        '/{post}/delete',
+        [PostController::class, 'destroy']
+    )->name('posts.destroy');// ::class is a php magic constant // TestController::class returns string contains its namespace
+});

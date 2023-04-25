@@ -21,4 +21,5 @@ Route::get('/', function () {
 Route::get('posts', 
 [PostController::class, 'index']);// ::class is a php magic constant // TestController::class returns string contains its namespace
 
-Route::get('posts/{post}', 'App\Http\Controllers\PostController@show');// PostController::class ==> App\Http\Controllers\PostController
+Route::get('posts/{post}', 
+'App\Http\Controllers\PostController@show')->name('posts.show');// PostController::class ==> App\Http\Controllers\PostController

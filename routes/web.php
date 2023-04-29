@@ -29,10 +29,15 @@ Route::prefix('posts')->group(function () {
         [PostController::class, 'index']
     )->name('posts.index');// ::class is a php magic constant // TestController::class returns string contains its namespace
 
-    Route::post(
+    Route::get(
         '/create',
         [PostController::class, 'create']
     )->name('posts.create');
+
+    Route::post(
+        '/store',
+        [PostController::class, 'store']
+    )->name('posts.store');
 
     Route::get(
         '/{post}',
@@ -43,6 +48,10 @@ Route::prefix('posts')->group(function () {
         '/{post}/edit',
         [PostController::class, 'edit']
     )->name('posts.edit');// ::class is a php magic constant // TestController::class returns string contains its namespace
+
+    Route::post("/{post}", 
+    [PostController::class, 'update']
+    )->name('posts.update');
 
     Route::get(
         '/{post}/delete',

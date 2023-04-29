@@ -1,9 +1,10 @@
-
 @extends('layouts.app')
 
 @section('content')
     <section class="container">
         <div class="row">
+            <div class="col-md-6 offset-md-3 text-center my-3"><a href={{ route('posts.create') }}><button
+                        class="btn btn-success btn-md">Create Post</button></a></div>
             <div class="col-12 col-md-8 offset-md-2 offset-0">
                 <table class="table text-center">
                     <thead>
@@ -17,16 +18,19 @@
                     </thead>
                     <tbody>
                         {{-- blade directives --}}
-                        @foreach ( $posts as $post)
+                        @foreach ($posts as $post)
                             <tr>
-                                <th scope="row">{{$post['id']}}</th>
-                                <td>{{$post['title']}}</td>
-                                <td>{{$post['posted_by']}}</td>
-                                <td>{{$post['created_at']}}</td>
+                                <th scope="row">{{ $post->id }}</th>
+                                <td>{{ $post->title }}</td>
+                                <td>{{ $post->posted_by }}</td>
+                                <td>{{ $post->created_at }}</td>
                                 <td>
-                                    <a href="{{route('posts.show', ['post'=> $post['id']])}}" class="btn btn-info btn-md">View</a>
-                                    <a href=" {{route('posts.edit', ['post'=> $post['id']])}} " class="btn btn-primary btn-md">Edit</a>
-                                    <a href="{{route('posts.destroy', ['post'=> $post['id']])}}" class="btn btn-danger btn-md">Delete</a>
+                                    <a href="{{ route('posts.show', ['post' => $post->id]) }}"
+                                        class="btn btn-info btn-md">View</a>
+                                    <a href=" {{ route('posts.edit', ['post' => $post->id]) }} "
+                                        class="btn btn-primary btn-md">Edit</a>
+                                    <a href="{{ route('posts.destroy', ['post' => $post->id]) }}"
+                                        class="btn btn-danger btn-md">Delete</a>
                                 </td>
                             </tr>
                         @endforeach

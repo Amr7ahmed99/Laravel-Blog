@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;//Composer using the namespace to autoload the required files using "psr-4"
 
 use App\Models\Post;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -30,19 +31,27 @@ class PostController extends Controller
 
     public function create(){
         return view("posts.create", [
-            "pageName"=> "Laravel-Create-Blogs"
+            "pageName"=> "Laravel-Create-Blogs",
+            "users"=> User::all()
         ]);
         //  return $this->index()->with('status', 'Blog Post Form Data Has Been inserted');
     }
 
     public function store(Request $myRequestObj){//Hinting Type
+        
         $data= $myRequestObj->all();//Get Request Data
+        //Insert New Data Into Posts Table
+        Post::create($data);//Takes [title, description, post_creator] from data object according to $fillable array
         // Post::create([
         //     'title'=> $data['title'],
         //     "description"=> $data['description'],
+        //     "user_id"=> $data['user_id'],
         // ]);
-        //Insert New Data Into Posts Table
-        Post::create($data);//Takes [title, description] from data object according to $fillable
+        // $newPost= new Post();
+        // $newPost->title= $data['title'];
+        // $newPost->description= $data['description'];
+        // $newPost->user_id= $data['user_id'];
+        // $newPost->save();
         return redirect()->route('posts.index');
     }
 
@@ -50,14 +59,19 @@ class PostController extends Controller
         
         return view('posts.edit', [
             "post"=> Post::find($post),
+            "users"=> User::all(),
             "pageName"=> "Laravel-Edit-Blog"
         ]);
     }
 
     public function update(Request $myRequestObj, $id){
         $data= $myRequestObj->all();
-        $updateFlag= Post::find($id)->update(['title'=> $data['title'], 'description'=> $data['description']]);
-        // dd($updateFlag);
+        // $updateFlag= Post::find($id)->update([
+        //     'title'=> $data['title'], 
+        //     'description'=> $data['description'],
+        //     'user_id' => $data['user_id']
+        // ]);
+        $isUpdated= Post::find($id)->update($data);
         return redirect()->route('posts.index');
     }
     

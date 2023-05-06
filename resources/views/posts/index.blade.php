@@ -22,7 +22,7 @@
                             <tr>
                                 <th scope="row">{{ $post->id }}</th>
                                 <td>{{ $post->title }}</td>
-                                <td>{{ $post->posted_by }}</td>
+                                <td>{{ $post->user? $post->user->name: "user not found" }}</td>
                                 <td>{{ $post->created_at }}</td>
                                 <td>
                                     <a href="{{ route('posts.show', ['post' => $post->id]) }}"

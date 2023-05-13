@@ -16,10 +16,10 @@
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="postsTableBody" >
                         {{-- blade directives --}}
                         @foreach ($posts as $post)
-                            <tr>
+                            <tr onclick="destroyPost(event, {{$post->id}})">
                                 <th scope="row">{{ $post->id }}</th>
                                 <td>{{ $post->title }}</td>
                                 <td>{{ $post->user? $post->user->name: "user not found" }}</td>
@@ -29,8 +29,9 @@
                                         class="btn btn-info btn-md">View</a>
                                     <a href=" {{ route('posts.edit', ['post' => $post->id]) }} "
                                         class="btn btn-primary btn-md">Edit</a>
-                                    <a href="{{ route('posts.destroy', ['post' => $post->id]) }}"
-                                        class="btn btn-danger btn-md">Delete</a>
+                                    <button class="btn btn-danger btn-md">
+                                            Delete
+                                    </button>
                                 </td>
                             </tr>
                         @endforeach
